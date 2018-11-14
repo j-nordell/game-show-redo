@@ -25,11 +25,11 @@ class Game {
       this.usedphrases = [];
       return this.getRandomPhrase(); // Recursion to get a random phrase once everything is set up
     } else {
-        let randomIndex = Math.floor(Math.random() * this.phrases.length);
+        let randomIndex = getRandomIndex(this.phrases.length);
         // if the the currently selected index contains the same phrase that was shown last time, pick another
         // This is otherwise possible when the phrases is refilled from the used phrases
         while(this.phrases[randomIndex] == this.lastPhrase) {
-          randomIndex = Math.floor(Math.random() * this.phrases.length);
+          randomIndex = getRandomIndex(this.phrases.length);
         }
         // remove the random phrase from the phrases list and add it to used phrases list
         const randomPhrase = this.phrases.splice(randomIndex, 1)[0].toUpperCase(); // This simultaneously gets the object at a random index and removes it from the quotes array
@@ -78,6 +78,7 @@ class Game {
 
   gameOver(winLose) {
     alert(winLose);
+
   }
 
   startGame() {

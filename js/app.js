@@ -39,3 +39,11 @@ keys.on("click", (e) => {
    markButton($(e.target), e.target.innerText.toUpperCase());
 });
 
+
+//=============================
+//  Helper Functions
+//=============================
+
+function getRandomIndex(arr) {
+  return Math.floor(Math.random() * arr.length);
+}
