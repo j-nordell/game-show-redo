@@ -101,7 +101,11 @@ let phrases = [
   "deep as the ocean",
   "stand out like a sore thumb",
   "green thumb",
-  "take a crack at"
+  "take a crack at",
+  "just peachy",
+  "right as rain",
+  "on cloud nine",
+  "back to the drawing board"
 ];
 
 const winningMessages = [
