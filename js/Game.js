@@ -1,11 +1,12 @@
 class Game {
-  constructor(missed, phrases) {
+  constructor(missed, phrases, usedPhrases, firstRound, lastPhrase) {
     this.missed = missed;
     this.phrases = phrases;
-    this.usedPhrases = [];
+    this.usedPhrases = usedPhrases;
+    this.firstRound = firstRound;
     this.started = false;
     this.currentPhrase = null;
-    this.lastPhrase = null;
+    this.lastPhrase = lastPhrase;
     this.allowedLetters = ["A", "B", "C", "D", "E", "F", "G",
     "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
     "S", "T", "U", "V", "W", "X", "Y", "Z"
@@ -25,11 +26,11 @@ class Game {
       this.usedphrases = [];
       return this.getRandomPhrase(); // Recursion to get a random phrase once everything is set up
     } else {
-        let randomIndex = getRandomIndex(this.phrases.length);
+        let randomIndex = this.phrases.randomIndex();
         // if the the currently selected index contains the same phrase that was shown last time, pick another
         // This is otherwise possible when the phrases is refilled from the used phrases
         while(this.phrases[randomIndex] == this.lastPhrase) {
-          randomIndex = getRandomIndex(this.phrases.length);
+          randomIndex = this.phrases.randomIndex();
         }
         // remove the random phrase from the phrases list and add it to used phrases list
         const randomPhrase = this.phrases.splice(randomIndex, 1)[0].toUpperCase(); // This simultaneously gets the object at a random index and removes it from the quotes array
@@ -77,12 +78,66 @@ class Game {
   }
 
   gameOver(winLose) {
-    alert(winLose);
+    this.started = false;
+    this.firstRound = false;
+    this.lastPhrase = this.currentPhrase;
+    $("#phrase ul").html("");
 
-  }
+    let totalMessage = '';
+    let emoji = '';
+    let message = '';
+      
+    overlay.removeClass("slideOutUp slideInLeft slideInRight win lose");
+    
+    if(winLose == "win") {
+      message = winningMessages[winningMessages.randomIndex()];
+      emoji = winEmojis[winEmojis.randomIndex()];
+      $("#game-over-message").css({"font-family": "Pacifico"});
+      overlay.addClass("slideInLeft win");
+      $("#answer").text("");
+    } else {
+      message = losingMessages[losingMessages.randomIndex()];
+      emoji = loseEmojis[loseEmojis.randomIndex()];
+      $("#game-over-message").css({"font-family": "'Shadows Into Light', cursive"});
+    }
+    emoji = String.fromCodePoint(parseInt(emoji, 16));
+    totalMessage += `${message}! ${emoji}`;
+    
+    $("#game-over-message").text(totalMessage);
+    // Display the correct answer as a player courtesy in case of loss
+  
+    if(winLose == "lose") {
+      $("#answer").text(`Correct answer: ${this.currentPhrase.phrase}`);
+      overlay.addClass("slideInRight lose");
+    }
+    
+    this.enableHearts();
+    this.enableKeys();
+    $("#btn__reset").text("Play again");
+   }
 
   startGame() {
     this.currentPhrase = new Phrase(this.getRandomPhrase().toUpperCase());
+    this.allowedLetters = ["A", "B", "C", "D", "E", "F", "G",
+    "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
+    "S", "T", "U", "V", "W", "X", "Y", "Z"
+    ];
     this.currentPhrase.addPhraseToDisplay();
   }
+
+  enableHearts() {
+    $(".tries").removeClass("animated flash");
+    let heartsImages = $(".tries img");
+    for(let heart of heartsImages) {
+      $(heart).attr("src", "images/liveHeart.png");
+    }
+  }
+
+  enableKeys() {
+    let keys = $(".key");
+    for(let key of keys) {
+      key.disabled = false;
+    }
+  }
+
 }
