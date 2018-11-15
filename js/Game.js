@@ -1,4 +1,12 @@
 class Game {
+  /**
+   * 
+   * @param {number} missed - the number missed always reset to 0 
+   * @param {Array} phrases - an array of strings containing phrases available 
+   * @param {Array} usedPhrases - an array of strings containing phrases already shown 
+   * @param {boolean} firstRound - a boolean value representing if this is the first round of the game 
+   * @param { } lastPhrase 
+   */
   constructor(missed, phrases, usedPhrases, firstRound, lastPhrase) {
     this.missed = missed;
     this.phrases = phrases;
@@ -39,48 +47,63 @@ class Game {
     }
   }
 
+  /**
+   * 
+   * @param {string} letter - the string that contains the letter we're working with
+   */
   handleInteraction(letter) {
-    if(this.currentPhrase.checkLetter(letter)) { 
-      this.currentPhrase.showMatchedLetter(letter);
-      this.checkForWin();
+    if(this.currentPhrase.checkLetter(letter)) {      // if the phrase contains the leter
+      this.currentPhrase.showMatchedLetter(letter);   // reveal that letter anywhere it appears
+      this.checkForWin();                             // check for a win
      } else { 
-       this.removeLife();
+       this.removeLife();                             // remove a "heart" from the player
      }
   }
 
+  /**
+   * Function to remove a "life" from a player
+   */
   removeLife() {
-    this.missed += 1;
+    this.missed += 1;                                 // increment the number missed
 
     let hearts = $(".tries");
     let heartImgs = $(".tries img");
   
-    $(hearts[5 - this.missed]).addClass("animated flash");
-    $(heartImgs[5 - this.missed]).attr("src", "images/lostHeart.png");
+    $(hearts[5 - this.missed]).addClass("animated flash");  // add class to lass heart
+    $(heartImgs[5 - this.missed]).attr("src", "images/lostHeart.png");  // change out last heart image source
      
-    if(this.missed == 5) {
-      this.gameOver("lose");
+    if(this.missed == 5) {    // if all lives are gone
+      this.gameOver("lose");  // game is over and pass "lose" to that function
     }
 
   }
 
+  /**
+   * Function to check if the user has won a game. This is called every time a player guesses
+   * a leter that was present in the current phrase
+   */
   checkForWin() {
-    let win = true;
-    let boxes = $("#phrase li");
+    let win = true;                   // start assuming that the player won
+    let boxes = $("#phrase li");      // select all the boxes for all letters shown or hidden
     for(let box of boxes) {
-        if(!($(box).hasClass("show")) && !($(box).hasClass("space"))) {
-          win = false;
+        if(!($(box).hasClass("show")) && !($(box).hasClass("space"))) {  // if it's not a space and it's not releaved
+          win = false;    // then the player hasn't yet won
         }
     }
     
-    if(win) {
-      this.gameOver("win");
+    if(win) {   // if the player won
+      this.gameOver("win");  // call the gameOver function with the argument "win"
     };
   }
 
+  /**
+   * Function that runs whenever the game is over due to a loss or a win
+   * @param {string} winLose - should contain either the string "win" or "lose" 
+   */
   gameOver(winLose) {
-    this.started = false;
-    this.firstRound = false;
-    this.lastPhrase = this.currentPhrase;
+    this.started = false;     // set the game.started to false so that we aren't still listening for enter to start a new game
+    this.firstRound = false;  // every subsequent round after the first will be subject to this
+    this.lastPhrase = this.currentPhrase;  // reset the lastPhrase used to this phrase to avoid repetition of phrases
     $("#phrase ul").html("");
 
     let totalMessage = '';
@@ -90,7 +113,8 @@ class Game {
       
     overlay.removeClass("slideOutUp slideInLeft slideInRight win lose");
        
-    if(winLose == "win") {
+    if(winLose == "win") {  // if the person won
+      // put together the message and styles for the "win" screen
       message = winningMessages[winningMessages.randomIndex()];
       emoji = winEmojis[winEmojis.randomIndex()];
       color = `${winColors[winColors.randomIndex()]}`;
@@ -98,6 +122,7 @@ class Game {
       overlay.addClass("slideInLeft win");
       $("#answer").text("");
     } else {
+      // otherwise, put together the message and styles for the "lose" screen
       message = losingMessages[losingMessages.randomIndex()];
       emoji = loseEmojis[loseEmojis.randomIndex()];
       color = `${loseColors[loseColors.randomIndex()]}`;
@@ -111,11 +136,16 @@ class Game {
     
     $("#game-over-message").text(totalMessage);
   
-    this.enableHearts();
-    this.enableKeys();
-    $("#btn__reset").text("Play again");
+    this.enableHearts();  // renable the hearts otherwise they show through the overlay
+    this.enableKeys();    // renable the keys otherwise they show through the overlay
+    $("#btn__reset").text("Play again");  // change the button text to indicate they are playing a new round
    }
 
+   /**
+    * Function to start the game that creates a new phrase and makes it the current phrase. Resets
+    * the allowed letters so that we can once again listen for keypresses on letters we guessed the last
+    * round. Add the current phrase to the display.
+    */
   startGame() {
     this.currentPhrase = new Phrase(this.getRandomPhrase().toUpperCase());
     this.allowedLetters = ["A", "B", "C", "D", "E", "F", "G",
@@ -125,6 +155,9 @@ class Game {
     this.currentPhrase.addPhraseToDisplay();
   }
 
+  /**
+   * Function to reset the hearts to their original state
+   */
   enableHearts() {
     $(".tries").removeClass("animated flash");
     let heartsImages = $(".tries img");
@@ -133,6 +166,9 @@ class Game {
     }
   }
 
+  /**
+   * Function reset the onscreen keyboard to its original state
+   */
   enableKeys() {
     let keys = $(".key");
     for(let key of keys) {
