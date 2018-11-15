@@ -162,3 +162,57 @@ const loseEmojis = [
   "2620",
   "1F44E"
 ];
+
+const winColors = [
+  "#00FFFF", // aqua
+  "#7FFFD4", // aquamarine
+  "#FF7F50", // coral
+  "#8FBC8F", // dark sea green
+  "#FF1493", // deep pink
+  "#00BFFF", // deep sky blue
+  "#FFD700", // gold
+  "#DAA520", // goldenrod
+  "#ADFF2F", // green yellow
+  "#FFB6C1", // light pink
+  "#FFA07A", // light salmon
+  "#87CEFA", // light sky blue
+  "#FF00FF", // magenta
+  "#66CDAA", // medium aquamarine
+  "#BA55D3", // medium orchid
+  "#00FA9A", // medium spring green
+  "#C71585", // medium violet red
+  "#FFA500", // orange
+  "#FF4500", // orange-red
+  "#FA8072", // salmon
+  "#87CEEB", // sky blue
+  "#40D0D0", // turquoise
+  "#EE82EE"  // violet
+];
+
+const loseColors = [
+  "#000000", // black
+  "#5F9EA0", // cadet blue
+  "#6495ES", // cornflower blue
+  "#00008B", // dark blue
+  "#008B8B", // dark cyan
+  "#006400", // dark green
+  "#B8860B", // dark goldenrod
+  "#A9A9A9", // dark gray
+  "#8B008B", // dark magenta
+  "#8B0000", // dark red
+  "#483D8B", // dark slate blue
+  "#2F4F4F", // dark slate grey
+  "#696969", // dim gray
+  "#808080", // gray
+  "#4B0082", // indigo
+  "#191970", // midnight blue
+  "#808000", // olive
+  "#6B8E23", // olive drab
+  "#800080", // purple
+  "#663399", // rebecca purple
+  "#8B4513", // saddle brown
+  "#6A5ACD", // slate blue
+  "#4682B4", // steel blue
+  "#008080", // teal
+  "#708090"  // slate gray
+];

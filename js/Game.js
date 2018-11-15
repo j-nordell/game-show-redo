@@ -86,31 +86,31 @@ class Game {
     let totalMessage = '';
     let emoji = '';
     let message = '';
+    let color = '';
       
     overlay.removeClass("slideOutUp slideInLeft slideInRight win lose");
-    
+       
     if(winLose == "win") {
       message = winningMessages[winningMessages.randomIndex()];
       emoji = winEmojis[winEmojis.randomIndex()];
+      color = `${winColors[winColors.randomIndex()]}`;
       $("#game-over-message").css({"font-family": "Pacifico"});
       overlay.addClass("slideInLeft win");
       $("#answer").text("");
     } else {
       message = losingMessages[losingMessages.randomIndex()];
       emoji = loseEmojis[loseEmojis.randomIndex()];
+      color = `${loseColors[loseColors.randomIndex()]}`;
+      $("#answer").text(`Correct answer: ${this.currentPhrase.phrase}`);
+      overlay.addClass("slideInRight lose");
       $("#game-over-message").css({"font-family": "'Shadows Into Light', cursive"});
     }
+    overlay.css({"background-color": color});
     emoji = String.fromCodePoint(parseInt(emoji, 16));
     totalMessage += `${message}! ${emoji}`;
     
     $("#game-over-message").text(totalMessage);
-    // Display the correct answer as a player courtesy in case of loss
   
-    if(winLose == "lose") {
-      $("#answer").text(`Correct answer: ${this.currentPhrase.phrase}`);
-      overlay.addClass("slideInRight lose");
-    }
-    
     this.enableHearts();
     this.enableKeys();
     $("#btn__reset").text("Play again");
