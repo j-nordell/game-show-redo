@@ -126,7 +126,14 @@ const winningMessages = [
   "Super",
   "Superb",
   "You rock",
-  "Like a boss"
+  "Like a boss",
+  "Marvelous",
+  "Stellar",
+  "Out of this world",
+  "First-class",
+  "First-rate",
+  "Second to none",
+  "Congratulations"
 ];
 
 const losingMessages = [
@@ -139,7 +146,10 @@ const losingMessages = [
   "Sorry",
   "Awwwwwww",
   "That's a shame",
-  "Rotten luck"
+  "Rotten luck",
+  "Bummer",
+  "Unfortunate",
+  "What a pity"
 ];
 
 const winEmojis = [

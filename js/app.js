@@ -75,6 +75,11 @@ keys.on("click", (e) => {
 //  Helper Functions
 //=============================
 
+/**
+ * Addition of a method onto the built-in Array object. Because this project contains
+ * many arrays that need to be drawn from randomly, this was added in an effort to keep
+ * the code DRY
+ */
 Array.prototype.randomIndex = function() {
   return Math.floor(Math.random() * this.length);
 }
