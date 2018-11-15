@@ -1,3 +1,5 @@
+
+// collection of phrases to be used as strings
 let phrases = [
   "when pigs fly",
   "over the moon",
@@ -108,6 +110,7 @@ let phrases = [
   "back to the drawing board"
 ];
 
+// collection of message to display when someone wins the game
 const winningMessages = [
   "Terrific",
   "Spectacular",
@@ -136,6 +139,7 @@ const winningMessages = [
   "Congratulations"
 ];
 
+// collection of messages to display when someone loses the game
 const losingMessages = [
   "Too bad",
   "Try again",
@@ -152,6 +156,7 @@ const losingMessages = [
   "What a pity"
 ];
 
+// UTF codes for emojis associated with happiness to be displayed on win messages
 const winEmojis = [
   "1F60D",
   "1F60E",
@@ -164,6 +169,7 @@ const winEmojis = [
   "1F3C6"  // trophy
 ];
 
+// UTF codes for emojis associated with sadness to be displayed on win messages
 const loseEmojis = [
   "1F615",
   "2639",
@@ -173,6 +179,7 @@ const loseEmojis = [
   "1F44E"
 ];
 
+// colorse to be used when a player wins generally bright/happy
 const winColors = [
   "#00FFFF", // aqua
   "#7FFFD4", // aquamarine
@@ -199,6 +206,7 @@ const winColors = [
   "#EE82EE"  // violet
 ];
 
+// colors to be used when a player loses generally dark/gloomy
 const loseColors = [
   "#000000", // black
   "#5F9EA0", // cadet blue
